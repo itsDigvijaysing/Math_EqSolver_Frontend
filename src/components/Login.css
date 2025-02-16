@@ -1,0 +1,240 @@
+/* Container styles */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    padding: 20px;
+    /* Optional gradient background */
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  }
+  
+  /* Main login box */
+  .login-box {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    transition: transform 0.3s ease;
+  }
+  
+  .login-box:hover {
+    transform: translateY(-2px);
+  }
+  
+  /* Typography */
+  .login-title {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-align: center;
+  }
+  
+  .login-subtitle {
+    margin: 10px 0 30px;
+    color: #666;
+    text-align: center;
+    font-size: 16px;
+  }
+  
+  /* Form styles */
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+  }
+  
+  /* Input styles */
+  .form-group input {
+    padding: 12px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .form-group input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  }
+  
+  .form-group input.error {
+    border-color: #dc2626;
+    background-color: #fff5f5;
+  }
+  
+  /* Error message */
+  .error-message {
+    color: #dc2626;
+    font-size: 13px;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  /* Form options (Remember me & Forgot password) */
+  .form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    margin: 8px 0;
+  }
+  
+  .remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #4b5563;
+    cursor: pointer;
+  }
+  
+  .remember-me input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+  
+  .forgot-password {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .forgot-password:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+  }
+  
+  /* Submit button */
+  .login-button {
+    padding: 12px 24px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .login-button:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+  }
+  
+  .login-button:active {
+    transform: translateY(0);
+  }
+  
+  .login-button:disabled {
+    background-color: #93c5fd;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+  
+  /* Submit error message */
+  .submit-error {
+    color: #dc2626;
+    text-align: center;
+    font-size: 14px;
+    padding: 10px;
+    background-color: #fff5f5;
+    border-radius: 6px;
+    margin-top: 10px;
+  }
+  
+  /* Sign up prompt */
+  .signup-prompt {
+    text-align: center;
+    font-size: 14px;
+    color: #4b5563;
+    margin-top: 20px;
+  }
+  
+  .signup-prompt a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 4px;
+  }
+  
+  .signup-prompt a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 480px) {
+    .login-box {
+      padding: 24px;
+    }
+  
+    .login-title {
+      font-size: 24px;
+    }
+  
+    .login-subtitle {
+      font-size: 14px;
+    }
+  
+    .form-options {
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-start;
+    }
+  }
+  
+  /* Optional loading animation for button */
+  @keyframes loading {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  .login-button:disabled {
+    animation: loading 1.5s infinite;
+  }
+  
+  /* Optional focus outline for accessibility */
+  :focus {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+  }
+  
+  /* Remove focus outline for mouse users, but keep for keyboard */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
