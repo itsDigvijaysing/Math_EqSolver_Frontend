@@ -1,14 +1,34 @@
 import { useState, useRef } from 'react';
 import axios from 'axios';
 import './UploadImage.css';
+import 'katex/dist/katex.min.css';
+import MathRenderer from './MathRenderer';
 
 const UploadImage = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [extractedEquation, setExtractedEquation] = useState('');
-  const [solution, setSolution] = useState(''); // Store Ollama output
+  // const [extractedEquation, setExtractedEquation] = useState('');
+  const [extractedEquation, setExtractedEquation] = useState("ax^2 + bx + c = 0");
+  const [solution, setSolution] = useState([
+    "\\text{Given quadratic equation: } ax^2 + bx + c = 0",
+    "\\text{Using the quadratic formula: } x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}",
+    "\\text{Step 1: Compute the discriminant } D = b^2 - 4ac",
+    "D = b^2 - 4ac",
+    "\\text{Step 2: Compute the roots}",
+    "\\text{If } D > 0, \\text{ the roots are real and distinct: }",
+    "x_1 = \\frac{-b + \\sqrt{D}}{2a}, \\quad x_2 = \\frac{-b - \\sqrt{D}}{2a}",
+    "\\text{If } D = 0, \\text{ the roots are real and equal: }",
+    "x = \\frac{-b}{2a}",
+    "\\text{If } D < 0, \\text{ the roots are complex: }",
+    "x_1 = \\frac{-b + i\\sqrt{|D|}}{2a}, \\quad x_2 = \\frac{-b - i\\sqrt{|D|}}{2a}"
+  ]);
+  
+
+
+  // const [solution, setSolution] = useState('');
   const fileInputRef = useRef(null);
 
+  // ... existing drag and drop handlers remain the same ...
   const handleDrag = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -59,8 +79,9 @@ const UploadImage = () => {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
+
       setExtractedEquation(response.data.equation);
-      setSolution(response.data.solution); // Set Ollama solution
+      setSolution(response.data.solution);
 
     } catch (error) {
       console.error('Error uploading image:', error);
@@ -69,7 +90,7 @@ const UploadImage = () => {
   };
 
   return (
-    <div className="upload-section">
+    <div className="upload-section" id="imageupload">
       <div className="container">
         <div 
           className={`upload-box ${isDragging ? 'dragging' : ''}`}
@@ -95,10 +116,26 @@ const UploadImage = () => {
         <div className="answer-box">
           <h3>Extracted Mathematical Equation</h3>
           {selectedImage && <img src={selectedImage} alt="Uploaded equation" className="preview-image" />}
-          <p className="extracted-equation">{extractedEquation || 'Upload an image to see the equation'}</p>
+          {extractedEquation && (
+            <div className="equation-display">
+              <MathRenderer math={extractedEquation} display={true} />
+            </div>
+          )}
 
           <h3>Solution from Ollama</h3>
-          <p className="ollama-output">{solution || 'Waiting for solution...'}</p>
+          {solution && (
+            <div className="solution-display">
+              {Array.isArray(solution) ? (
+                solution.map((line, index) => (
+                  <div key={index} className="solution-line">
+                    <MathRenderer math={line} display={true} />
+                  </div>
+                ))
+              ) : (
+                <MathRenderer math={solution} display={true} />
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>

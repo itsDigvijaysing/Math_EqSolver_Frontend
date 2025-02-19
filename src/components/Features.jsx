@@ -3,28 +3,28 @@ import './Features.css';
 const Features = () => {
   const features = [
     {
-      icon: "camera",
+      icon: "tick",
       title: "Instant Image Recognition",
       description: "Simply upload a photo of your math equation and our AI will instantly recognize and process it."
     },
     {
-      icon: "clipboard",
+      icon: "tick",
       title: "Step-by-Step Solutions",
       description: "Get detailed explanations for each step of the solution process, helping you understand the concepts better."
     },
     {
-      icon: "clock",
+      icon: "tick",
       title: "5 Free Searches",
       description: "Start with 5 free equation solves. Perfect for trying out the service before committing."
     },
     {
-      icon: "shield",
+      icon: "tick",
       title: "Secure Login",
       description: "Your work stays private with secure user authentication and personal storage."
     },
     {
-      icon: "bolt",
-      title: "Real-Time Processing",
+      icon: "/tick.png",
+      title: "Real-Time Processing", 
       description: "Watch as our AI processes your equation in real-time with a sleek loading animation."
     },
   ];
