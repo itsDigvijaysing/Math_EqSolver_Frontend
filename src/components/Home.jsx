@@ -4,8 +4,6 @@ import Navbar from './Navbar';
 import UploadImage from './UploadImage';
 
 
-
-
 const HomePage = () => {
   return (
     <div className="homepage">
@@ -17,69 +15,104 @@ const HomePage = () => {
           <h1>Welcome to Our Platform</h1>
           <p>Transform your ideas into reality with our powerful solutions</p>
           <div className="hero-buttons">
-            <a href="#imageupload"><button className="primary-button">Get Started</button></a>
+            <a  href="#imageupload"><button className="primary-button">Get Started</button></a>
           </div>
         </div>
         <div className="hero-image">
           <img src="/hero-image.png" alt="Hero illustration" />
         </div>
       </section>
-      <div></div>
+      <div id="imageupload"></div>
       <UploadImage/>
 
       {/* Features Section */}
       <Features />
 
-      {/* About Section */}
-      <section className="about-section" id="about">
-        <div className="about-left">
-          <h2>About Us</h2>
-          <p>We are dedicated to providing the best solutions for our clients. </p>
-        </div>
-
-        <div className="quick-team-cards">
-          <div className="quick-team-card"><strong>Digvijay</strong> - Vision AI Expert</div>
-          <div className="quick-team-card"><strong>Kartik</strong> - Frontend Development Specialist</div>
-          <div className="quick-team-card"><strong>Rushikeshwar</strong> - Backend Architecture Master</div>
-          <div className="quick-team-card"><strong>Jagadeesh</strong> - ML Algorithm Innovator</div>
-          <div className="quick-team-card"><strong>Rajesh</strong> - UI/UX Design Professional</div>
-        </div>
-      </section>
 
       {/* Team Section */}
      
 
       {/* Testimonials Section */}
       <section className="testimonials-section" id="testimonials">
+          <h2>Our Team</h2>
+          <p>Meet our talented team of experts dedicated to bringing you the best solutions.</p>
         <div className="testimonials-grid">
-          {[1, 2, 3].map((item) => (
-            <div className="testimonial-card" key={item}>
-              <div className="testimonial-content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                   Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-              </div>
-              <div className="testimonial-author">
-                <img src={`/avatar-${item}.png`} alt="Client avatar" />
-                <div>
-                  <h4>John Doe</h4>
-                  <p>CEO, Company {item}</p>
-                </div>
+          <div className="testimonial-card">
+            <div className="testimonial-author">
+              {/* <img src="/avatar-1.png" alt="Team member avatar" /> */}
+              <div>
+                <h4>Digvijay</h4>
+                <p>Vision AI Expert</p>
               </div>
             </div>
-          ))}
+            <div className="testimonial-content">
+              <p>Leading our computer vision and AI initiatives with expertise in developing cutting-edge image processing solutions and machine learning models.</p>
+            </div>
+          </div>
+
+          <div className="testimonial-card">
+            <div className="testimonial-author">
+              {/* <img src="/avatar-1.png" alt="Team member avatar" /> */}
+              <div>
+                <h4>Kartik</h4>
+                <p>Frontend Development Specialist</p>
+              </div>
+            </div>
+            <div className="testimonial-content">
+              <p>Creating seamless and responsive user interfaces while ensuring optimal performance and user experience across all platforms.</p>
+            </div>
+          </div>
+
+          <div className="testimonial-card">
+            <div className="testimonial-author">
+              {/* <img src="/avatar-1.png" alt="Team member avatar" /> */}
+              <div>
+                <h4>Rushikeshwar</h4>
+                <p>Backend Architecture Master</p>
+              </div>
+            </div>
+            <div className="testimonial-content">
+              <p>Architecting robust backend systems and ensuring scalable infrastructure to support our growing platform needs.</p>
+            </div>
+          </div>
+
+          <div className="testimonial-card">
+            <div className="testimonial-author">
+              {/* <img src="/avatar-1.png" alt="Team member avatar" /> */}
+              <div>
+                <h4>Jagadeesh</h4>
+                <p>ML Algorithm Innovator</p>
+              </div>
+            </div>
+            <div className="testimonial-content">
+              <p>Developing and implementing innovative machine learning algorithms to enhance our platforms capabilities and accuracy.</p>
+            </div>
+          </div>
+
+          <div className="testimonial-card">
+            <div className="testimonial-author">
+              {/* <img src="/avatar-1.png" alt="Team member avatar" /> */}
+              <div>
+                <h4>Rajesh</h4>
+                <p>UI/UX Design Professional</p>
+              </div>
+            </div>
+            <div className="testimonial-content">
+              <p>Crafting intuitive and engaging user experiences while ensuring aesthetic excellence across all our platform interfaces.</p>
+            </div>
+          </div>
         </div>
       </section>
 
-   
 
 
       {/* Footer */}
       <footer className="footer">
         <div className="footer-content">
           <div className="footer-section">
-            <h3>Numerix</h3>
-            <p>Transform your ideas into reality with our powerful solutions.</p>
+            <h2>Numerix</h2>
           </div>
+            <p>Transform your ideas into reality with our powerful solutions.</p>
           <div className="footer-section">
             <a href="#home">Home</a>
             <a href="#about">About</a>
