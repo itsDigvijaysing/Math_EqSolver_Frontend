@@ -12,16 +12,16 @@ const Features = () => {
       title: "Step-by-Step Solutions",
       description: "Get detailed explanations for each step of the solution process, helping you understand the concepts better."
     },
-    {
-      icon: "tick",
-      title: "5 Free Searches",
-      description: "Start with 5 free equation solves. Perfect for trying out the service before committing."
-    },
-    {
-      icon: "tick",
-      title: "Secure Login",
-      description: "Your work stays private with secure user authentication and personal storage."
-    },
+    // {
+    //   icon: "tick",
+    //   title: "5 Free Searches",
+    //   description: "Start with 5 free equation solves. Perfect for trying out the service before committing."
+    // },
+    // {
+    //   icon: "tick",
+    //   title: "Secure Login",
+    //   description: "Your work stays private with secure user authentication and personal storage."
+    // },
     {
       icon: "/tick.png",
       title: "Real-Time Processing", 
@@ -30,7 +30,7 @@ const Features = () => {
   ];
 
   return (
-    <section className="features-section">
+    <section className="features-section" id='features'>
       <div className="features-container">
         <h2>Powerful Features</h2>
         <p className="features-subtitle">
