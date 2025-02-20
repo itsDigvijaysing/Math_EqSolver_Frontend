@@ -357,3 +357,18 @@
   text-align: center;
   margin: 10px 0;
 }
+
+.solve-btn{
+  margin-top: 12px;
+  width: 140px;
+  background-color: #295bee;
+  color: white;
+  font-weight: bold;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.solve-btn:hover{
+  background-color: #1e4bd8;
+}

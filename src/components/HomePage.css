@@ -1,5 +1,5 @@
 /* Add this at the very top of your CSS file */
-body {
+html {
   scroll-behavior: smooth !important;
  
 background-image: linear-gradient(to top, #def5f4 0%, #b5d0f7 100%) !important;

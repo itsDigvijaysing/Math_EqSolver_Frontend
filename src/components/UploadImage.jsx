@@ -8,7 +8,7 @@ const UploadImage = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   // const [extractedEquation, setExtractedEquation] = useState('');
-  const [extractedEquation, setExtractedEquation] = useState("ax^2 + bx + c = 0");
+  const [extractedEquation, setExtractedEquation] = useState("");
   const [solution, setSolution] = useState([
     "\\text{Given quadratic equation: } ax^2 + bx + c = 0",
     "\\text{Using the quadratic formula: } x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}",
@@ -94,6 +94,10 @@ const UploadImage = () => {
     }
   };
 
+  const handleRequest = () => {
+    console.log("Requesting solution...");
+  };
+
   return (
     <div className="upload-section" id="imageupload">
       <div className="container">
@@ -119,16 +123,23 @@ const UploadImage = () => {
         </div>
 
         <div className="answer-box">
-          <h3>Extracted Mathematical Equation</h3>
+          <h3>Uploaded Image</h3>
           {selectedImage && <img src={selectedImage} alt="Uploaded equation" className="preview-image" />}
-          {extractedEquation && (
+          {selectedImage && <button className="solve-btn" onClick={handleRequest}>
+            Solve
+          </button>}
+          {selectedImage && extractedEquation && (
+            <>
+            <h3 style={{ marginTop: "20px" }}>Extracted Equation</h3>
             <div className="equation-display" style={{ textAlign: "center" }}>
               <MathRenderer math={extractedEquation} display={true} />
             </div>
+            </>
           )}
 
-          <h3>Solution from Ollama</h3>
-          {solution && (
+          {extractedEquation && solution && (
+            <>
+          <h3>Solution from NumAI</h3>
             <div className="solution-display" style={{ textAlign: "center" }}>
               {Array.isArray(solution) ? (
                 solution.map((line, index) => (
@@ -140,6 +151,7 @@ const UploadImage = () => {
                 <MathRenderer math={solution} display={true} />
               )}
             </div>
+              </>
           )}
         </div>
       </div>
