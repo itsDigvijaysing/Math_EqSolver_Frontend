@@ -1,12 +1,14 @@
 .features-section {
   padding: 6rem 2rem;
-  background: linear-gradient(to bottom, #f8f9fa, #ffffff);
+background-image: linear-gradient(to top, #b5d0f7 100%, #def5f4 0%) !important;
+
 }
 
 .features-container {
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
+  background-image: white;
 }
 
 .features-container h2 {
@@ -28,6 +30,7 @@
 
 .features-grid {
   display: grid;
+  background-color: white;
   grid-template-columns: repeat(3, 300px);
   gap: 2.5rem;
   margin: 0 auto;
