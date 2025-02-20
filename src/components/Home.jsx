@@ -17,16 +17,16 @@ const HomePage = () => {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 4 + 1;
+        this.size = Math.random() * 3 + 1;
         this.speedX = Math.random() * 2 - 1;
         this.speedY = Math.random() * 2 - 1;
-        this.color = 'rgba(173, 170, 170, 0.8)'; // Changed to white
+        this.color = 'rgba(102, 99, 99, 0.8)'; // Changed to white
       }
 
       update() {
         this.x += this.speedX;
         this.y += this.speedY;
-        if (this.size > 0.2) this.size -= 0.01;
+        // if (this.size > 0.2) this.size -= 0.01;
         if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
         if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
       }

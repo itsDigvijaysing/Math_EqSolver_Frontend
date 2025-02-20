@@ -487,3 +487,17 @@ background-image: linear-gradient(to top, #def5f4 0%, #b5d0f7 100%) !important;
       transform: translateY(0px);
     }
   }
+
+  .blue-section {
+    position: relative;
+    background: #4285f4;
+    color: white;
+    padding: 4rem 2rem;
+    overflow: hidden;
+  }
+
+  /* Make sure any content inside blue sections is above particles */
+  .blue-section > *:not(canvas) {
+    position: relative;
+    z-index: 2;
+  }
