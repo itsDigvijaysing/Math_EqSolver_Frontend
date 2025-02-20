@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import './Features.css';
 
 const Features = () => {
@@ -28,6 +29,31 @@ const Features = () => {
       description: "Watch as our AI processes your equation in real-time with a sleek loading animation."
     },
   ];
+
+  useEffect(() => {
+    // Intersection Observer code remains the same...
+
+    // Add mouse move effect
+    const cards = document.querySelectorAll('.feature-card');
+    
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+
+    return () => {
+      // Cleanup mouse events
+      cards.forEach(card => {
+        card.removeEventListener('mousemove', () => {});
+      });
+    };
+  }, []);
 
   return (
     <section className="features-section" id='features'>
