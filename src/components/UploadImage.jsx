@@ -83,9 +83,9 @@ const UploadImage = () => {
       setExtractedEquation(response.data.equation);
       setSolution(
         Array.isArray(response.data.solution)
-          ? response.data.solution.map(line => line.trim())
-          : [response.data.solution.trim()]
-      );
+          ? response.data.solution.map(line => line.replace(/\n/g, " ").trim())
+          : [response.data.solution.replace(/\n/g, " ").trim()]
+      );      
       
 
     } catch (error) {

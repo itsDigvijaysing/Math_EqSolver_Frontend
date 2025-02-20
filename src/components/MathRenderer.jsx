@@ -8,10 +8,10 @@ const MathRenderer = ({ math, display = false }) => {
 
   useEffect(() => {
     if (containerRef.current) {
-      const isBlockMath = math.startsWith("$$") && math.endsWith("$$");
+      const isBlockMath = math.startsWith("\\text") ? false : true;
 
     containerRef.current.innerHTML = katex.renderToString(
-      math.replace(/\$\$/g, ''), 
+      math, 
       {
         displayMode: isBlockMath,
         throwOnError: false
