@@ -323,3 +323,18 @@
   width: 100%;
 }   
 
+.solution-line {
+  text-align: center;
+  font-size: 20px;
+  margin: 5px 0;
+}
+
+.equation-display {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.katex-display {
+  text-align: center;
+}

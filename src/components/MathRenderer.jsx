@@ -8,11 +8,15 @@ const MathRenderer = ({ math, display = false }) => {
 
   useEffect(() => {
     if (containerRef.current) {
-      katex.render(math, containerRef.current, {
-        displayMode: display, // true for block math, false for inline
-        throwOnError: false, // prevents KaTeX from throwing errors
-        output: 'html'
-      });
+      const isBlockMath = math.startsWith("$$") && math.endsWith("$$");
+
+    containerRef.current.innerHTML = katex.renderToString(
+      math.replace(/\$\$/g, ''), 
+      {
+        displayMode: isBlockMath,
+        throwOnError: false
+      }
+    );
     }
   }, [math, display]);
 

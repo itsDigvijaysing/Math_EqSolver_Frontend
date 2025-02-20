@@ -81,7 +81,12 @@ const UploadImage = () => {
 
 
       setExtractedEquation(response.data.equation);
-      setSolution(response.data.solution);
+      setSolution(
+        Array.isArray(response.data.solution)
+          ? response.data.solution.map(line => line.trim())
+          : [response.data.solution.trim()]
+      );
+      
 
     } catch (error) {
       console.error('Error uploading image:', error);
@@ -117,14 +122,14 @@ const UploadImage = () => {
           <h3>Extracted Mathematical Equation</h3>
           {selectedImage && <img src={selectedImage} alt="Uploaded equation" className="preview-image" />}
           {extractedEquation && (
-            <div className="equation-display">
+            <div className="equation-display" style={{ textAlign: "center" }}>
               <MathRenderer math={extractedEquation} display={true} />
             </div>
           )}
 
           <h3>Solution from Ollama</h3>
           {solution && (
-            <div className="solution-display">
+            <div className="solution-display" style={{ textAlign: "center" }}>
               {Array.isArray(solution) ? (
                 solution.map((line, index) => (
                   <div key={index} className="solution-line">
