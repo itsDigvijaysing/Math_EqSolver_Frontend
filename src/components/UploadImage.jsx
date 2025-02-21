@@ -17,6 +17,10 @@ const UploadImage = () => {
     e.stopPropagation();
   };
 
+  const handleImageRequest = () => {
+    console.log("Image request");
+  };
+
   const handleDragIn = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -122,7 +126,7 @@ const UploadImage = () => {
         <div className="answer-box">
           <h3>Uploaded Image</h3>
           {selectedImage && <img src={selectedImage} alt="Uploaded equation" className="preview-image" />}
-          
+          {selectedImage && <button className="solve-btn" onClick={handleImageRequest}>Solve</button>}
           {selectedImage && extractedEquation && (
             <>
               <h3 style={{ marginTop: "20px" }}>Extracted Equation</h3>
