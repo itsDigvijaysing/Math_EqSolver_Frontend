@@ -17,10 +17,6 @@ const UploadImage = () => {
     e.stopPropagation();
   };
 
-  const handleImageRequest = () => {
-    console.log("Image request");
-  };
-
   const handleDragIn = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -49,7 +45,6 @@ const UploadImage = () => {
   const handleFiles = (file) => {
     if (file && file.type.startsWith('image/')) {
       setSelectedImage(URL.createObjectURL(file));
-      uploadImage(file);
     }
   };
 
@@ -57,9 +52,11 @@ const UploadImage = () => {
     fileInputRef.current.click();
   };
 
-  const uploadImage = async (file) => {
+  const uploadImage = async () => {
+    if (!selectedImage) return;
+    
     const formData = new FormData();
-    formData.append('image', file);
+    formData.append('image', fileInputRef.current.files[0]);
 
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/upload/', formData, {
@@ -76,16 +73,20 @@ const UploadImage = () => {
 
   const handleTextRequest = async () => {
     if (!textInput.trim()) return;
-    
+
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/solve_text/', { question: textInput });
-      setExtractedEquation(response.data.equation);
-      setSolution(response.data.solution || []);
+        const response = await axios.post('http://127.0.0.1:8000/api/upload/', { text: textInput }, {
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        setExtractedEquation(response.data.equation);
+        setSolution(response.data.solution || []);
     } catch (error) {
-      console.error('Error processing text:', error);
-      setSolution(['Error processing input.']);
+        console.error('Error processing text:', error);
+        setSolution(['Error processing input.']);
     }
   };
+
 
   return (
     <div className="upload-section" id="imageupload">
@@ -112,31 +113,36 @@ const UploadImage = () => {
             </button>
           </div>
           <div className="or-container">OR</div>
-          <input 
-            type="text" 
-            placeholder="Ask to solve in natural language" 
-            value={textInput} 
-            onChange={(e) => setTextInput(e.target.value)}
+          <textarea 
+            placeholder="Enter mathematical expression or question" 
+            value={textInput}
+            onChange={(e) => setTextInput(e.target.value)} 
+            className="text-input-box"
           />
-          <button className="solve-btn1" onClick={handleTextRequest} disabled={selectedImage !== null || textInput.trim() === ""}>
-            Solve
+          <button className="submit-btn" onClick={handleTextRequest}>
+            Submit Text
           </button>
         </div>
 
         <div className="answer-box">
-          <h3>Uploaded Image</h3>
-          {selectedImage && <img src={selectedImage} alt="Uploaded equation" className="preview-image" />}
-          {selectedImage && <button className="solve-btn" onClick={handleImageRequest}>Solve</button>}
-          {selectedImage && extractedEquation && (
+          {selectedImage && (
             <>
-              <h3 style={{ marginTop: "20px" }}>Extracted Equation</h3>
+              <h3>Uploaded Image</h3>
+              <img src={selectedImage} alt="Uploaded equation" className="preview-image" />
+              <button className="solve-btn" onClick={uploadImage}>Solve</button>
+            </>
+          )}
+          
+          {extractedEquation && (
+            <>
+              <h3>Extracted Equation</h3>
               <div className="equation-display" style={{ textAlign: "center" }}>
                 <MathRenderer math={extractedEquation} display={true} />
               </div>
             </>
           )}
           
-          {extractedEquation && solution.length > 0 && (
+          {solution.length > 0 && (
             <>
               <h3>Solution</h3>
               <div className="solution-display" style={{ textAlign: "center" }}>
