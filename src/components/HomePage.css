@@ -98,7 +98,18 @@ background-image: linear-gradient(to top, #def5f4 0%, #b5d0f7 100%) !important;
     justify-content: space-between;
     padding: 6rem 4rem;
     gap: 2rem;
-  }
+    flex-direction: row;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6); /* Increased shadow */
+}
+
+.video-container {
+    position: relative;
+    max-width: 500px; /* Adjust as needed */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7); /* Stronger shadow effect */
+    border-radius: 10px; /* Optional rounded corners */
+    overflow: hidden;
+}
+
   
   .hero-content {
     position: relative;
@@ -501,3 +512,28 @@ background-image: linear-gradient(to top, #def5f4 0%, #b5d0f7 100%) !important;
     position: relative;
     z-index: 2;
   }
+
+  .hero-demo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .demo-video {
+    z-index: 10000;
+    width: 900px;
+    border-radius: 10px;
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.658);
+  }
+  
+  @media (max-width: 768px) {
+    .hero-demo {
+      flex-direction: column;
+    }
+  
+    .demo-video {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+  
