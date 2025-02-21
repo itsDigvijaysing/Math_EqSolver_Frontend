@@ -137,7 +137,7 @@ const HomePage = () => {
               {/* <img src="/avatar-1.png" alt="Team member avatar" /> */}
               <div>
                 <h4>Kartik</h4>
-                <p>Frontend</p>
+                <p>Frontend and UI/UX</p>
               </div>
             </div>
             <div className="testimonial-content">
@@ -163,7 +163,7 @@ const HomePage = () => {
               {/* <img src="/avatar-1.png" alt="Team member avatar" /> */}
               <div>
                 <h4>Jagadeesh</h4>
-                <p>ML Algorithms</p>
+                <p>ML/DL Algorithms</p>
               </div>
             </div>
             <div className="testimonial-content">

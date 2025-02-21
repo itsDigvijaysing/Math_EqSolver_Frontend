@@ -7,28 +7,11 @@ import MathRenderer from './MathRenderer';
 const UploadImage = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  // const [extractedEquation, setExtractedEquation] = useState('');
   const [extractedEquation, setExtractedEquation] = useState("");
-  const [solution, setSolution] = useState([
-    "\\text{Given quadratic equation: } ax^2 + bx + c = 0",
-    "\\text{Using the quadratic formula: } x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}",
-    "\\text{Step 1: Compute the discriminant } D = b^2 - 4ac",
-    "D = b^2 - 4ac",
-    "\\text{Step 2: Compute the roots}",
-    "\\text{If } D > 0, \\text{ the roots are real and distinct: }",
-    "x_1 = \\frac{-b + \\sqrt{D}}{2a}, \\quad x_2 = \\frac{-b - \\sqrt{D}}{2a}",
-    "\\text{If } D = 0, \\text{ the roots are real and equal: }",
-    "x = \\frac{-b}{2a}",
-    "\\text{If } D < 0, \\text{ the roots are complex: }",
-    "x_1 = \\frac{-b + i\\sqrt{|D|}}{2a}, \\quad x_2 = \\frac{-b - i\\sqrt{|D|}}{2a}"
-  ]);
-  
-
-
-  // const [solution, setSolution] = useState('');
+  const [solution, setSolution] = useState([]);
+  const [textInput, setTextInput] = useState("");
   const fileInputRef = useRef(null);
 
-  // ... existing drag and drop handlers remain the same ...
   const handleDrag = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -52,7 +35,7 @@ const UploadImage = () => {
     e.preventDefault();
     e.stopPropagation();
     setIsDragging(false);
-
+    
     const files = e.dataTransfer.files;
     if (files && files[0]) {
       handleFiles(files[0]);
@@ -79,79 +62,87 @@ const UploadImage = () => {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
-
       setExtractedEquation(response.data.equation);
-      setSolution(
-        Array.isArray(response.data.solution)
-          ? response.data.solution.map(line => line.replace(/\n/g, " ").trim())
-          : [response.data.solution.replace(/\n/g, " ").trim()]
-      );      
-      
-
+      setSolution(response.data.solution || []);
     } catch (error) {
       console.error('Error uploading image:', error);
-      setSolution('Error processing image.');
+      setSolution(['Error processing image.']);
     }
   };
 
-  const handleRequest = () => {
-    console.log("Requesting solution...");
+  const handleTextRequest = async () => {
+    if (!textInput.trim()) return;
+    
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/api/solve_text/', { question: textInput });
+      setExtractedEquation(response.data.equation);
+      setSolution(response.data.solution || []);
+    } catch (error) {
+      console.error('Error processing text:', error);
+      setSolution(['Error processing input.']);
+    }
   };
 
   return (
     <div className="upload-section" id="imageupload">
       <div className="container">
-        <div 
-          className={`upload-box ${isDragging ? 'dragging' : ''}`}
-          onDragEnter={handleDragIn}
-          onDragLeave={handleDragOut}
-          onDragOver={handleDrag}
-          onDrop={handleDrop}
-        >
-          <h3>Drag & Drop Your Image</h3>
-          <p className="upload-text">or click to browse files</p>
-          <input
-            type="file"
-            ref={fileInputRef}
-            onChange={(e) => handleFiles(e.target.files[0])}
-            accept="image/*"
-            className="file-input"
+        <div className="input-container">
+          <div 
+            className={`upload-box ${isDragging ? 'dragging' : ''}`}
+            onDragEnter={handleDragIn}
+            onDragLeave={handleDragOut}
+            onDragOver={handleDrag}
+            onDrop={handleDrop}
+          >
+            <h3>Drag & Drop Your Image</h3>
+            <p className="upload-text">or click to browse files</p>
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={(e) => handleFiles(e.target.files[0])}
+              accept="image/*"
+              className="file-input"
+            />
+            <button className="choose-file-btn" onClick={handleBrowseClick}>
+              Choose File
+            </button>
+          </div>
+          <div className="or-container">OR</div>
+          <input 
+            type="text" 
+            placeholder="Ask to solve in natural language" 
+            value={textInput} 
+            onChange={(e) => setTextInput(e.target.value)}
           />
-          <button className="choose-file-btn" onClick={handleBrowseClick}>
-            Choose File
+          <button className="solve-btn1" onClick={handleTextRequest} disabled={selectedImage !== null || textInput.trim() === ""}>
+            Solve
           </button>
         </div>
 
         <div className="answer-box">
           <h3>Uploaded Image</h3>
           {selectedImage && <img src={selectedImage} alt="Uploaded equation" className="preview-image" />}
-          {selectedImage && <button className="solve-btn" onClick={handleRequest}>
-            Solve
-          </button>}
+          
           {selectedImage && extractedEquation && (
             <>
-            <h3 style={{ marginTop: "20px" }}>Extracted Equation</h3>
-            <div className="equation-display" style={{ textAlign: "center" }}>
-              <MathRenderer math={extractedEquation} display={true} />
-            </div>
+              <h3 style={{ marginTop: "20px" }}>Extracted Equation</h3>
+              <div className="equation-display" style={{ textAlign: "center" }}>
+                <MathRenderer math={extractedEquation} display={true} />
+              </div>
             </>
           )}
-
-          {extractedEquation && solution && (
+          
+          {extractedEquation && solution.length > 0 && (
             <>
-          <h3>Solution from NumAI</h3>
-            <div className="solution-display" style={{ textAlign: "center" }}>
-              {Array.isArray(solution) ? (
-                solution.map((line, index) => (
+              <h3>Solution</h3>
+              <div className="solution-display" style={{ textAlign: "center" }}>
+                {solution.map((line, index) => (
                   <div key={index} className="solution-line">
                     <MathRenderer math={line} display={true} />
                   </div>
-                ))
-              ) : (
-                <MathRenderer math={solution} display={true} />
-              )}
-            </div>
-              </>
+                ))}
+              </div>
+            </>
           )}
         </div>
       </div>
